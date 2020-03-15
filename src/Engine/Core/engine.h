@@ -25,7 +25,6 @@ public:
 
   bool init();
   bool cleanup();
-  void quit();
 
   void update();
   void render();

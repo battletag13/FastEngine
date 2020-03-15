@@ -15,10 +15,15 @@
 namespace fe_config {
 
 // Core config
-constexpr int WINDOW_WIDTH = 960;
-constexpr int WINDOW_HEIGHT = 640;
-constexpr const char *WINDOW_TITLE = "Fast Engine";
+constexpr int DEFAULT_WINDOW_WIDTH = 960;
+constexpr int DEFAULT_WINDOW_HEIGHT = 640;
+constexpr const char *DEFAULT_WINDOW_TITLE = "Fast Engine";
 constexpr std::array<int, 4> DEFAULT_RENDERER_DRAW_COLOR = {104, 130, 158, 255};
+
+// Logger config
+constexpr const char *DEFAULT_ERROR_MESSAGE = "An unknown error has occured!";
+constexpr const char *LOG_FILE = "log.txt";
+constexpr bool LOGGING_TO_FILE = false;
 
 } // namespace fe_config
 

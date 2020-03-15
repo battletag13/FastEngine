@@ -8,6 +8,7 @@
 //  Copyright © 2020 Matthew Lin. All rights reserved.
 //
 #include "engine.h"
+#include "../Logger/logger.h"
 #include "../constants.h"
 
 Engine *Engine::engineInstance = nullptr;
@@ -18,38 +19,50 @@ bool Engine::init() {
   // Make sure SDL and SDL_Image both initialize properly
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0 ||
       !(IMG_Init(SDL_ImageFlags) & SDL_ImageFlags)) {
-    SDL_Log("Failed to initialize SDL: %s", SDL_GetError());
+    Logger::getInstance()->logError("Failed to initialize SDL!");
+    Logger::getInstance()->logFatalError(SDL_GetError());
     return false;
   }
+  Logger::getInstance()->log("SDL initialized!");
 
   // Create our window and check for errors
-  window = SDL_CreateWindow(fe_config::WINDOW_TITLE, SDL_WINDOWPOS_CENTERED,
-                            SDL_WINDOWPOS_CENTERED, fe_config::WINDOW_WIDTH,
-                            fe_config::WINDOW_HEIGHT, 0);
+  window =
+      SDL_CreateWindow(fe_config::DEFAULT_WINDOW_TITLE, SDL_WINDOWPOS_CENTERED,
+                       SDL_WINDOWPOS_CENTERED, fe_config::DEFAULT_WINDOW_WIDTH,
+                       fe_config::DEFAULT_WINDOW_HEIGHT, 0);
   if (window == nullptr) {
-    SDL_Log("Failed to create window: %s", SDL_GetError());
+    Logger::getInstance()->logError("Failed to create window!");
+    Logger::getInstance()->logFatalError(SDL_GetError());
     return false;
   }
+  Logger::getInstance()->log("Window created!");
 
   // Create our renderer and check for errors
   renderer = SDL_CreateRenderer(window, -1, 0);
   if (renderer == nullptr) {
-    SDL_Log("Failed to create renderer: %s", SDL_GetError());
+    Logger::getInstance()->logError("Failed to create renderer!");
+    Logger::getInstance()->logFatalError(SDL_GetError());
     return false;
   }
+  Logger::getInstance()->log("Renderer created!");
 
+  Logger::getInstance()->log("Engine initialized!");
   return isRunning_ = true;
 }
 bool Engine::cleanup() {
   // SDL cleanup
   SDL_DestroyWindow(window);
   SDL_DestroyRenderer(renderer);
+  IMG_Quit();
   SDL_Quit();
   // Clearing pointers
   delete this->getInstance();
+
+  Logger::getInstance()->log("Engine cleaned!");
+
+  delete Logger::getInstance();
   return true;
 }
-void Engine::quit() { isRunning_ = false; }
 
 void Engine::update() {}
 void Engine::render() {
@@ -65,7 +78,7 @@ void Engine::events() {
   SDL_PollEvent(&event);
   switch (event.type) {
   case SDL_QUIT:
-    quit();
+    isRunning_ = false;
     break;
   default:
     break;
