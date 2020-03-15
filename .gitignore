@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/c++,linux,macos,windows
-# Edit at https://www.gitignore.io/?templates=c++,linux,macos,windows
+# Created by https://www.gitignore.io/api/c++,linux,macos,windows,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=c++,linux,macos,windows,visualstudiocode
 
 ### C++ ###
 # Prerequisites
@@ -79,6 +79,17 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -105,4 +116,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/c++,linux,macos,windows
+# End of https://www.gitignore.io/api/c++,linux,macos,windows,visualstudiocode
