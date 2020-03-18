@@ -9,7 +9,7 @@
 //
 #include "engine.h"
 #include "../Logger/logger.h"
-#include "../constants.h"
+#include "../config.h"
 
 namespace fast_engine {
 
@@ -29,9 +29,9 @@ bool Engine::init() {
 
   // Create our window and check for errors
   window =
-      SDL_CreateWindow(fe_config::DEFAULT_WINDOW_TITLE, SDL_WINDOWPOS_CENTERED,
-                       SDL_WINDOWPOS_CENTERED, fe_config::DEFAULT_WINDOW_WIDTH,
-                       fe_config::DEFAULT_WINDOW_HEIGHT, 0);
+      SDL_CreateWindow(fe_config::WINDOW_TITLE.c_str(), SDL_WINDOWPOS_CENTERED,
+                       SDL_WINDOWPOS_CENTERED, fe_config::WINDOW_WIDTH,
+                       fe_config::WINDOW_HEIGHT, 0);
   if (window == nullptr) {
     Logger::getInstance()->logError("Failed to create window!");
     Logger::getInstance()->logFatalError(SDL_GetError());

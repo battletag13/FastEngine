@@ -1,0 +1,62 @@
+//  FastEngine
+//
+//  Created by Matthew Lin.
+//  Contact: matthewlinplusprogramming@gmail.com
+//
+//  This is the header to include in order to configure/interface with the
+//  engine
+//
+//  Copyright © 2020 Matthew Lin. All rights reserved.
+//
+#ifndef FASTENGINE_FAST_ENGINE_H_
+#define FASTENGINE_FAST_ENGINE_H_
+
+#include <string>
+
+#include "config.h"
+
+// Core includes
+#include "Core/engine.h"
+
+// ECS includes
+#include "ECS/ecs.h"
+#include "ECS/sprite_renderer.h"
+#include "ECS/transform.h"
+
+// Utility includes
+#include "Utility/time.h"
+#include "Utility/util_logger.h"
+#include "Utility/vector2D.h"
+
+// Engine configuration
+
+using fast_engine::Component;
+using fast_engine::SpriteRenderer;
+using fast_engine::Transform;
+
+// Sets background color of the window
+void setBackgroundColor(int r, int g, int b, int a = 255) {
+  fast_engine::Engine::getInstance()->setDrawColor(r, g, b, a);
+};
+
+// Sets window properties (reinitializes SDL)
+void setWindowPropertiesAndReset(std::string windowTitle, Vector2D size) {
+  fe_config::WINDOW_WIDTH = size.x;
+  fe_config::WINDOW_HEIGHT = size.y;
+  fe_config::WINDOW_TITLE = windowTitle;
+
+  SDL_SetWindowTitle(fast_engine::Engine::getInstance()->getWindow(),
+                     windowTitle.c_str());
+  SDL_SetWindowSize(fast_engine::Engine::getInstance()->getWindow(), size.x,
+                    size.y);
+}
+void setWindowPropertiesAndReset(std::string windowTitle, int w, int h) {
+  setWindowPropertiesAndReset(windowTitle, Vector2D(w, h));
+}
+
+// Sets default src rect size of a sprite renderer
+void setSpriteRendererDefaultSrcRectSize(Vector2D size) {
+  fe_config::SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE = size;
+}
+
+#endif

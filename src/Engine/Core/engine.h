@@ -12,7 +12,7 @@
 
 #include <array>
 
-#include "../constants.h"
+#include "../config.h"
 #include "SDL2/SDL.h"
 #include "SDL2_Image/SDL_image.h"
 
@@ -33,6 +33,13 @@ public:
   void events();
 
   inline bool isRunning() { return this->isRunning_; }
+  inline void setDrawColor(int r, int g, int b, int a = 255) {
+    rendererDrawColor[0] = r;
+    rendererDrawColor[1] = g;
+    rendererDrawColor[2] = b;
+    rendererDrawColor[3] = a;
+  }
+  inline SDL_Window *getWindow() { return this->window; }
   inline SDL_Renderer *getRenderer() { return this->renderer; }
 
 private:

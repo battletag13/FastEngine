@@ -7,12 +7,16 @@
 //
 //  Copyright © 2020 Matthew Lin. All rights reserved.
 //
+#include "../Scripts/start.h"
 #include "Core/engine.h"
 #include "SDL2/SDL.h"
 #include "Utility/time.h"
 
 int main() {
   fast_engine::Engine::getInstance()->init();
+
+  start();
+
   // Start the frame clock
   MilisecondsTimer frameClock;
 

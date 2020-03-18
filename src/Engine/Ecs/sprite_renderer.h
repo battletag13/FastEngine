@@ -11,6 +11,7 @@
 #define FASTENGINE_SPRITE_RENDERER_COMPONENT_H_
 
 #include "../Graphics/texture_manager.h"
+#include "../config.h"
 #include "SDL2/SDL.h"
 #include "ecs.h"
 #include "transform.h"
@@ -20,8 +21,9 @@ namespace fast_engine {
 class SpriteRenderer : public Component {
 public:
   // Constructors
-  SpriteRenderer(const std::string pathToTexture,
-                 Vector2D srcRectSize = Vector2D(16, 16)) {
+  SpriteRenderer(
+      const std::string pathToTexture,
+      Vector2D srcRectSize = fe_config::SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE) {
 
     setTexture(pathToTexture);
 

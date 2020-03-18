@@ -13,7 +13,7 @@
 #include <stdexcept>
 #include <string>
 
-#include "../constants.h"
+#include "../config.h"
 #include "logger.h"
 
 namespace fast_engine {

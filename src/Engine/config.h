@@ -11,19 +11,27 @@
 #define FASTENGINE_CONSTANTS_H_
 
 #include <array>
+#include <string>
+
+#include "Utility/vector2D.h"
 
 namespace fe_config {
 
 // Core config
-constexpr int DEFAULT_WINDOW_WIDTH = 960;
-constexpr int DEFAULT_WINDOW_HEIGHT = 640;
-constexpr const char *DEFAULT_WINDOW_TITLE = "Fast Engine";
-constexpr std::array<int, 4> DEFAULT_RENDERER_DRAW_COLOR = {104, 130, 158, 255};
+extern int WINDOW_WIDTH;
+extern int WINDOW_HEIGHT;
+extern std::string WINDOW_TITLE;
 
 // ECS config
+extern Vector2D SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE;
+
+// Core constants
+constexpr std::array<int, 4> DEFAULT_RENDERER_DRAW_COLOR = {104, 130, 158, 255};
+
+// ECS constants
 constexpr int MAX_COMPONENTS = 512;
 
-// Logger config
+// Logger constants
 constexpr const char *DEFAULT_ERROR_MESSAGE = "An unknown error has occured!";
 constexpr const char *LOG_FILE = "log.txt";
 constexpr bool LOGGING_TO_FILE = false;

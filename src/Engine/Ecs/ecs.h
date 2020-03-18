@@ -19,7 +19,7 @@
 #include <vector>
 
 #include "../Utility/vector2D.h"
-#include "../constants.h"
+#include "../config.h"
 
 namespace fast_engine {
 
