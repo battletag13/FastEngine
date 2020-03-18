@@ -21,6 +21,8 @@
 #include "../Utility/vector2D.h"
 #include "../constants.h"
 
+namespace fast_engine {
+
 // Core classes
 struct Component;
 class GameObject;
@@ -151,4 +153,5 @@ private:
   std::vector<std::unique_ptr<GameObject>> gameObjects;
 };
 
+} // namespace fast_engine
 #endif

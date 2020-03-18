@@ -11,6 +11,8 @@
 #include "../Logger/logger.h"
 #include "../constants.h"
 
+namespace fast_engine {
+
 Engine *Engine::engineInstance = nullptr;
 
 bool Engine::init() {
@@ -84,3 +86,5 @@ void Engine::events() {
     break;
   }
 }
+
+} // namespace fast_engine

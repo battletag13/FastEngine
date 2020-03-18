@@ -16,6 +16,8 @@
 #include "SDL2/SDL.h"
 #include "SDL2_Image/SDL_image.h"
 
+namespace fast_engine {
+
 class Engine {
 public:
   static Engine *getInstance() {
@@ -46,4 +48,5 @@ private:
   std::array<int, 4> rendererDrawColor;
 };
 
+} // namespace fast_engine
 #endif

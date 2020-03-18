@@ -15,6 +15,8 @@
 
 #include "../constants.h"
 
+namespace fast_engine {
+
 std::string timeAsString();
 
 class Logger {
@@ -45,4 +47,5 @@ private:
   static Logger *loggerInstance;
 };
 
+} // namespace fast_engine
 #endif

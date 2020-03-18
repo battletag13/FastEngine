@@ -16,6 +16,8 @@
 #include "../constants.h"
 #include "logger.h"
 
+namespace fast_engine {
+
 Logger *Logger::loggerInstance = nullptr;
 
 std::string timeAsString() {
@@ -141,3 +143,5 @@ void Logger::logFatalError(double message, std::logic_error customError) {
   std::cerr << "FATAL_ERROR::" << message << '\n';
   throw customError;
 }
+
+} // namespace fast_engine

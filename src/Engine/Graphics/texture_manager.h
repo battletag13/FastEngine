@@ -14,6 +14,8 @@
 
 #include "SDL2/SDL.h"
 
+namespace fast_engine {
+
 class TextureManager {
 public:
   static TextureManager *getInstance() {
@@ -34,4 +36,5 @@ private:
   static TextureManager *textureManagerInstance;
 };
 
+} // namespace fast_engine
 #endif

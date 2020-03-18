@@ -12,6 +12,8 @@
 #include "SDL2/SDL.h"
 #include "SDL2_Image/SDL_image.h"
 
+namespace fast_engine {
+
 TextureManager *TextureManager::textureManagerInstance = nullptr;
 
 void TextureManager::render(SDL_Texture *texture, SDL_Rect srcRect,
@@ -28,3 +30,5 @@ SDL_Texture *TextureManager::loadTexture(const std::string pathToTexture) {
 
   return texture;
 }
+
+} // namespace fast_engine

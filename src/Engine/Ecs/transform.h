@@ -15,6 +15,8 @@
 #include "../Utility/vector2D.h"
 #include "ecs.h"
 
+namespace fast_engine {
+
 struct Transform : public Component {
   Transform() : position(0, 0), scale(1, 1), angleOfRotation(0) {}
 
@@ -39,4 +41,5 @@ struct Transform : public Component {
   double angleOfRotation;
 };
 
+} // namespace fast_engine
 #endif

@@ -11,6 +11,8 @@
 #include "ecs.h"
 #include "transform.h"
 
+namespace fast_engine {
+
 GameObject &GameObject::instantiate(Vector2D position) {
   GameObject &object = manager->addGameObject();
   object.getComponent<Transform>().position = position;
@@ -25,3 +27,5 @@ GameObject &Manager::addGameObject() {
   gameObject->addComponent<Transform>();
   return *gameObject;
 }
+
+} // namespace fast_engine

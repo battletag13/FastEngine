@@ -15,6 +15,8 @@
 #include "ecs.h"
 #include "transform.h"
 
+namespace fast_engine {
+
 class SpriteRenderer : public Component {
 public:
   // Constructors
@@ -63,4 +65,6 @@ private:
   SDL_Texture *objectTexture;
   SDL_Rect srcRect, destRect;
 };
+
+} // namespace fast_engine
 #endif
