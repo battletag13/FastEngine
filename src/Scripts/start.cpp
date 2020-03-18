@@ -10,6 +10,9 @@
 #include "start.h"
 #include "../Engine/fast_engine.h"
 
+// Used for addGameObject
+Manager *manager = Manager::getInstance();
+
 void start() {
   // Game starts here!
 }

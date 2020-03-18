@@ -30,6 +30,8 @@
 
 // Engine configuration
 
+using fast_engine::Manager;
+
 using fast_engine::Component;
 using fast_engine::SpriteRenderer;
 using fast_engine::Transform;
