@@ -20,6 +20,9 @@ constexpr int DEFAULT_WINDOW_HEIGHT = 640;
 constexpr const char *DEFAULT_WINDOW_TITLE = "Fast Engine";
 constexpr std::array<int, 4> DEFAULT_RENDERER_DRAW_COLOR = {104, 130, 158, 255};
 
+// ECS config
+constexpr int MAX_COMPONENTS = 512;
+
 // Logger config
 constexpr const char *DEFAULT_ERROR_MESSAGE = "An unknown error has occured!";
 constexpr const char *LOG_FILE = "log.txt";
