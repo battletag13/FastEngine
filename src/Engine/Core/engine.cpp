@@ -9,6 +9,7 @@
 //
 #include "engine.h"
 #include "../ECS/ecs.h"
+#include "../Input/input.h"
 #include "../Logger/logger.h"
 #include "../config.h"
 
@@ -80,15 +81,16 @@ void Engine::render() {
   SDL_RenderPresent(renderer);
 }
 void Engine::events() {
-  SDL_Event event;
-  SDL_PollEvent(&event);
-  switch (event.type) {
+  SDL_PollEvent(Input::getInstance()->getCurrentEvent());
+  switch (Input::getInstance()->getCurrentEvent()->type) {
   case SDL_QUIT:
     isRunning_ = false;
     break;
   default:
     break;
   }
+  // Handoff duties to the Input class
+  Input::getInstance()->handleCurrentEvent();
 }
 
 } // namespace fast_engine
