@@ -25,6 +25,7 @@
 
 // Utility includes
 #include "Utility/time.h"
+#include "Utility/util_input.h"
 #include "Utility/util_logger.h"
 #include "Utility/vector2D.h"
 
