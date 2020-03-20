@@ -9,6 +9,7 @@
 //
 #include "texture_manager.h"
 #include "../Core/engine.h"
+#include "../Logger/logger.h"
 #include "SDL2/SDL.h"
 #include "SDL2_Image/SDL_image.h"
 
@@ -24,6 +25,11 @@ void TextureManager::render(SDL_Texture *texture, SDL_Rect srcRect,
 
 SDL_Texture *TextureManager::loadTexture(const std::string pathToTexture) {
   SDL_Surface *tempSurface = IMG_Load(pathToTexture.c_str());
+  if (tempSurface == nullptr) {
+    Logger::getInstance()->logError("Failed to load texture!");
+    Logger::getInstance()->logError(IMG_GetError());
+  }
+
   SDL_Texture *texture = SDL_CreateTextureFromSurface(
       Engine::getInstance()->getRenderer(), tempSurface);
   SDL_FreeSurface(tempSurface);
