@@ -38,6 +38,8 @@ public:
     rendererDrawColor[1] = g;
     rendererDrawColor[2] = b;
     rendererDrawColor[3] = a;
+    SDL_SetRenderDrawColor(renderer, rendererDrawColor[0], rendererDrawColor[1],
+                           rendererDrawColor[2], rendererDrawColor[3]);
   }
   inline SDL_Window *getWindow() { return this->window; }
   inline SDL_Renderer *getRenderer() { return this->renderer; }

@@ -8,6 +8,7 @@
 //  Copyright © 2020 Matthew Lin. All rights reserved.
 //
 #include "engine.h"
+#include "../ECS/ecs.h"
 #include "../Logger/logger.h"
 #include "../config.h"
 
@@ -46,6 +47,8 @@ bool Engine::init() {
     Logger::getInstance()->logFatalError(SDL_GetError());
     return false;
   }
+  SDL_SetRenderDrawColor(renderer, rendererDrawColor[0], rendererDrawColor[1],
+                         rendererDrawColor[2], rendererDrawColor[3]);
   Logger::getInstance()->log("Renderer created!");
 
   Logger::getInstance()->log("Engine initialized!");
@@ -66,12 +69,13 @@ bool Engine::cleanup() {
   return true;
 }
 
-void Engine::update() {}
+void Engine::update() { Manager::getInstance()->update(); }
 void Engine::render() {
   // Prepare the renderer
   SDL_RenderClear(renderer);
-  SDL_SetRenderDrawColor(renderer, rendererDrawColor[0], rendererDrawColor[1],
-                         rendererDrawColor[2], rendererDrawColor[3]);
+
+  Manager::getInstance()->render();
+
   // Present the renderer
   SDL_RenderPresent(renderer);
 }

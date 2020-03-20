@@ -13,6 +13,8 @@
 
 namespace fast_engine {
 
+Manager *Manager::managerInstance = nullptr;
+
 GameObject &GameObject::instantiate(Vector2D position) {
   GameObject &object = manager->addGameObject();
   object.getComponent<Transform>().position = position;
