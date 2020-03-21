@@ -24,7 +24,7 @@ int main() {
     fast_engine::Engine::getInstance()->events();
     fast_engine::Engine::getInstance()->update();
     fast_engine::Engine::getInstance()->render();
-    Time::deltaTime = frameClock.reset();
+    time::deltaTime = frameClock.reset();
   }
 
   fast_engine::Engine::getInstance()->cleanup();
