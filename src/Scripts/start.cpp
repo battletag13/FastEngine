@@ -7,8 +7,12 @@
 //
 //  Copyright © 2020 Matthew Lin. All rights reserved.
 //
+
+// Core includes
 #include "start.h"
-#include "../Engine/fast_engine.h"
+#include "engineAPI.h"
+
+// Other includes
 
 // Used for addGameObject
 Manager *manager = Manager::getInstance();
