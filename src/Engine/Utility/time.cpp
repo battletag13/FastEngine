@@ -9,7 +9,7 @@
 //
 #include "time.h"
 
-double Time::deltaTime;
+double time::deltaTime;
 
 // Set the start point to the current time
 void Timer::start() { startPoint = std::chrono::high_resolution_clock::now(); }

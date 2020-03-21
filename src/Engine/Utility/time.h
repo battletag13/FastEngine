@@ -14,7 +14,7 @@
 #include <chrono>
 
 // Holds static variable 'deltaTime'
-struct Time {
+struct time {
   static double deltaTime;
 };
 
