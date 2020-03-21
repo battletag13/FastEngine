@@ -29,6 +29,10 @@
 #include "Utility/util_logger.h"
 #include "Utility/vector2D.h"
 
+// SDL includes
+#include "SDL2/SDL.h"
+#include "SDL2_Image/SDL_image.h"
+
 // Engine configuration
 
 using fast_engine::Component;
