@@ -19,9 +19,9 @@
 #include "Core/engine.h"
 
 // ECS includes
-#include "ECS/ecs.h"
-#include "ECS/sprite_renderer.h"
-#include "ECS/transform.h"
+#include "Ecs/ecs.h"
+#include "Ecs/sprite_renderer.h"
+#include "Ecs/transform.h"
 
 // Utility includes
 #include "Utility/time.h"

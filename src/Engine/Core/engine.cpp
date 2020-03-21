@@ -8,7 +8,7 @@
 //  Copyright © 2020 Matthew Lin. All rights reserved.
 //
 #include "engine.h"
-#include "../ECS/ecs.h"
+#include "../Ecs/ecs.h"
 #include "../Input/input.h"
 #include "../Logger/logger.h"
 #include "../config.h"
