@@ -27,14 +27,14 @@ struct Vector2D {
   Vector2D &operator*=(const Vector2D &other);
   Vector2D &operator/=(const Vector2D &other);
 
-  Vector2D &operator+=(const float scaler);
-  Vector2D &operator-=(const float scaler);
-  Vector2D &operator*=(const float scaler);
-  Vector2D &operator/=(const float scaler);
+  Vector2D &operator+=(const double scaler);
+  Vector2D &operator-=(const double scaler);
+  Vector2D &operator*=(const double scaler);
+  Vector2D &operator/=(const double scaler);
 
   // Members
-  float x;
-  float y;
+  double x;
+  double y;
 };
 
 Vector2D operator+(const Vector2D &v1, const Vector2D &v2);
