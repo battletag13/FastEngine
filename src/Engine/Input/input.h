@@ -34,7 +34,7 @@ public:
   bool getMouseButtonDown(Uint8 buttonCode);
   bool getMouseButtonUp(Uint8 buttonCode);
   bool getMouseButton(Uint8 buttonCode);
-  bool getButtonDown(SDL_Keycode keyCode);
+  bool getButtonDown(SDL_Keycode keyCode, bool ignoreRepeats = true);
   bool getButtonUp(SDL_Keycode keyCode);
   bool getButton(SDL_Keycode keyCode);
 
@@ -45,6 +45,7 @@ private:
   SDL_Event *event;
   std::map<SDL_Keycode, bool> keyMap;
   std::map<SDL_Keycode, bool> keyStateChangeMap;
+  std::map<SDL_Keycode, bool> keyStateChangeMapRepeatsCounted;
   std::bitset<3> mouseButtonMap;
   std::bitset<3> mouseButtonStateChangeMap;
 };

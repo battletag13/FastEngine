@@ -31,11 +31,13 @@ void Input::handleCurrentEvent() {
   switch (event->type) {
   case SDL_KEYDOWN:
     keyMap[event->key.keysym.sym] = true;
-    keyStateChangeMap[event->key.keysym.sym] = true;
+    keyStateChangeMap[event->key.keysym.sym] = event->key.repeat ? false : true;
+    keyStateChangeMapRepeatsCounted[event->key.keysym.sym] = true;
     break;
   case SDL_KEYUP:
     keyMap[event->key.keysym.sym] = false;
-    keyStateChangeMap[event->key.keysym.sym] = true;
+    keyStateChangeMap[event->key.keysym.sym] = event->key.repeat ? false : true;
+    keyStateChangeMapRepeatsCounted[event->key.keysym.sym] = true;
     break;
   case SDL_MOUSEBUTTONDOWN:
     mouseButtonMap[event->button.button - 1] = true;
@@ -63,16 +65,17 @@ bool Input::getMouseButtonUp(Uint8 buttonCode) {
 bool Input::getMouseButton(Uint8 buttonCode) {
   return mouseButtonMap[buttonCode];
 }
-bool Input::getButtonDown(SDL_Keycode keyCode) {
+bool Input::getButtonDown(SDL_Keycode keyCode, bool ignoreRepeats) {
   // Checking for state change
   auto iter = keyMap.find(keyCode);
   auto iter2 = keyStateChangeMap.find(keyCode);
+  auto iter3 = keyStateChangeMapRepeatsCounted.find(keyCode);
 
   // Since we're checking for state change, no change also means false
   if (iter == keyMap.end() || iter2 == keyStateChangeMap.end()) {
     return false;
   } else {
-    return iter->second && iter2->second;
+    return iter->second && (ignoreRepeats ? iter2->second : iter3->second);
   }
 }
 bool Input::getButtonUp(SDL_Keycode keyCode) {

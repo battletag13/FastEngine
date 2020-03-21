@@ -28,8 +28,9 @@ bool getMouseButtonUp(Uint8 buttonCode) {
 bool getMouseButton(Uint8 buttonCode) {
   return fast_engine::Input::getInstance()->getMouseButton(buttonCode);
 }
-bool getButtonDown(SDL_Keycode keyCode) {
-  return fast_engine::Input::getInstance()->getButtonDown(keyCode);
+bool getButtonDown(SDL_Keycode keyCode, bool ignoreRepeats = true) {
+  return fast_engine::Input::getInstance()->getButtonDown(keyCode,
+                                                          ignoreRepeats);
 }
 bool getButtonUp(SDL_Keycode keyCode) {
   return fast_engine::Input::getInstance()->getButtonUp(keyCode);
