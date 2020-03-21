@@ -22,15 +22,22 @@ struct Vector2D {
   friend Vector2D operator*(const Vector2D &v1, const Vector2D &v2);
   friend Vector2D operator/(const Vector2D &v1, const Vector2D &v2);
 
+  friend Vector2D operator+(const Vector2D &v1, const double scalar);
+  friend Vector2D operator+(const double scalar, const Vector2D &v2);
+  friend Vector2D operator-(const Vector2D &v1, const double scalar);
+  friend Vector2D operator*(const Vector2D &v1, const double scalar);
+  friend Vector2D operator*(const double scalar, const Vector2D &v2);
+  friend Vector2D operator/(const Vector2D &v1, const double scalar);
+
   Vector2D &operator+=(const Vector2D &other);
   Vector2D &operator-=(const Vector2D &other);
   Vector2D &operator*=(const Vector2D &other);
   Vector2D &operator/=(const Vector2D &other);
 
-  Vector2D &operator+=(const double scaler);
-  Vector2D &operator-=(const double scaler);
-  Vector2D &operator*=(const double scaler);
-  Vector2D &operator/=(const double scaler);
+  Vector2D &operator+=(const double scalar);
+  Vector2D &operator-=(const double scalar);
+  Vector2D &operator*=(const double scalar);
+  Vector2D &operator/=(const double scalar);
 
   // Members
   double x;
@@ -41,5 +48,12 @@ Vector2D operator+(const Vector2D &v1, const Vector2D &v2);
 Vector2D operator-(const Vector2D &v1, const Vector2D &v2);
 Vector2D operator*(const Vector2D &v1, const Vector2D &v2);
 Vector2D operator/(const Vector2D &v1, const Vector2D &v2);
+
+Vector2D operator+(const Vector2D &v1, const double scalar);
+Vector2D operator+(const double scalar, const Vector2D &v2);
+Vector2D operator-(const Vector2D &v1, const double scalar);
+Vector2D operator*(const Vector2D &v1, const double scalar);
+Vector2D operator*(const double scalar, const Vector2D &v2);
+Vector2D operator/(const Vector2D &v1, const double scalar);
 
 #endif
