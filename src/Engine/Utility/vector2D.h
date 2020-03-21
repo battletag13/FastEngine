@@ -14,7 +14,7 @@
 struct Vector2D {
   // Constructors
   Vector2D();
-  Vector2D(float x, float y);
+  Vector2D(double x, double y);
 
   // Utility
   friend Vector2D operator+(const Vector2D &v1, const Vector2D &v2);
