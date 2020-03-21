@@ -37,7 +37,7 @@ Vector2D operator-(const Vector2D &v1, const double scalar) {
 Vector2D operator*(const Vector2D &v1, const double scalar) {
   return Vector2D(v1.x * scalar, v1.y * scalar);
 }
-Vector2D operator+(const double scalar, const Vector2D &v2) {
+Vector2D operator*(const double scalar, const Vector2D &v2) {
   return Vector2D(v2.x * scalar, v2.y * scalar);
 }
 Vector2D operator/(const Vector2D &v1, const double scalar) {
