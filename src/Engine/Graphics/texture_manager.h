@@ -30,6 +30,8 @@ public:
 
   // For loading a texture from a file
   static SDL_Texture *loadTexture(const std::string pathToTexture);
+  // For loading a surface from a file
+  static SDL_Surface *loadSurface(const std::string pathToSurface);
 
 private:
   TextureManager() {}

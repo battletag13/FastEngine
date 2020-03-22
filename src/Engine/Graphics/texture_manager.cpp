@@ -37,4 +37,14 @@ SDL_Texture *TextureManager::loadTexture(const std::string pathToTexture) {
   return texture;
 }
 
+SDL_Surface *TextureManager::loadSurface(const std::string pathToSurface) {
+  SDL_Surface *surface = IMG_Load(pathToSurface.c_str());
+  if (surface == nullptr) {
+    Logger::getInstance()->logError("Failed to load surface!");
+    Logger::getInstance()->logError(IMG_GetError());
+  }
+
+  return surface;
+}
+
 } // namespace fast_engine
