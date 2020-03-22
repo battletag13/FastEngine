@@ -20,7 +20,7 @@ SDL_Event *getCurrentEvent() {
 }
 
 bool getMouseButtonDown(Uint8 buttonCode) {
-  return fast_engine::Input::getInstance()->getMouseButton(buttonCode);
+  return fast_engine::Input::getInstance()->getMouseButtonDown(buttonCode);
 }
 bool getMouseButtonUp(Uint8 buttonCode) {
   return fast_engine::Input::getInstance()->getMouseButtonUp(buttonCode);
