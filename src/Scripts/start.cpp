@@ -13,7 +13,7 @@
 #include "engineAPI.h"
 
 // Other includes
-#include "playerManager_DEMO.h"
+#include "playerController_DEMO.h"
 
 // Used for addGameObject
 Manager *manager = Manager::getInstance();
@@ -24,6 +24,6 @@ void start() {
   // Demo code
   GameObject &player = manager->addGameObject();
   player.addComponent<SpritesheetRenderer>("src/Res/spritesheet_test.png");
-  player.addComponent<PlayerManager>();
+  player.addComponent<PlayerController>();
   // End demo code
 }
