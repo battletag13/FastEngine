@@ -15,6 +15,9 @@
 
 class PlayerController : public Component {
 public:
+  PlayerController(double speed, double diagonalMoveModifier)
+      : speed(speed), diagonalMoveModifier(diagonalMoveModifier){};
+
   void update() {
     velocity = Vector2D(0, 0);
     if (input::getButton(SDLK_s)) {

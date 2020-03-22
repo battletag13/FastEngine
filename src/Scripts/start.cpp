@@ -24,6 +24,6 @@ void start() {
   // Demo code
   GameObject &player = manager->addGameObject();
   player.addComponent<SpritesheetRenderer>("src/Res/spritesheet_test.png");
-  player.addComponent<PlayerController>();
+  player.addComponent<PlayerController>(1, 0.7);
   // End demo code
 }
