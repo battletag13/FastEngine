@@ -11,6 +11,11 @@
 #include "Core/engine.h"
 #include "SDL2/SDL.h"
 #include "Utility/time.h"
+#include <iostream>
+
+long double total = 0;
+long num = 0;
+constexpr int FRAME_MOD = 1000;
 
 int main() {
   fast_engine::Engine::getInstance()->init();
@@ -25,6 +30,10 @@ int main() {
     fast_engine::Engine::getInstance()->update();
     fast_engine::Engine::getInstance()->render();
     time::deltaTime = frameClock.reset();
+
+    total += time::deltaTime;
+    if (++num % FRAME_MOD == 0)
+      std::cout << time::deltaTime << ", " << (total / num) << '\n';
   }
 
   fast_engine::Engine::getInstance()->cleanup();
