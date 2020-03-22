@@ -21,6 +21,7 @@
 // ECS includes
 #include "Ecs/ecs.h"
 #include "Ecs/sprite_renderer.h"
+#include "Ecs/spritesheet_renderer.h"
 #include "Ecs/transform.h"
 
 // Utility includes
@@ -39,6 +40,7 @@ using fast_engine::Component;
 using fast_engine::GameObject;
 using fast_engine::Manager;
 using fast_engine::SpriteRenderer;
+using fast_engine::SpritesheetRenderer;
 using fast_engine::Transform;
 
 // Sets background color of the window
@@ -46,8 +48,8 @@ void setBackgroundColor(int r, int g, int b, int a = 255) {
   fast_engine::Engine::getInstance()->setDrawColor(r, g, b, a);
 };
 
-// Sets window properties (reinitializes SDL)
-void setWindowPropertiesAndReset(std::string windowTitle, Vector2D size) {
+// Sets window properties
+void setWindowProperties(std::string windowTitle, Vector2D size) {
   fe_config::WINDOW_WIDTH = size.x;
   fe_config::WINDOW_HEIGHT = size.y;
   fe_config::WINDOW_TITLE = windowTitle;
@@ -57,13 +59,19 @@ void setWindowPropertiesAndReset(std::string windowTitle, Vector2D size) {
   SDL_SetWindowSize(fast_engine::Engine::getInstance()->getWindow(), size.x,
                     size.y);
 }
-void setWindowPropertiesAndReset(std::string windowTitle, int w, int h) {
-  setWindowPropertiesAndReset(windowTitle, Vector2D(w, h));
+void setWindowProperties(std::string windowTitle, int w, int h) {
+  setWindowProperties(windowTitle, Vector2D(w, h));
 }
 
-// Sets default src rect size of a sprite renderer
+// Sprite renderer defaults
 void setSpriteRendererDefaultSrcRectSize(Vector2D size) {
   fe_config::SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE = size;
+}
+void setSpriteRendererDefaultOffsetSize(Vector2D size) {
+  fe_config::SPRITESHEET_RENDERER_DEFAULT_OFFSET_SIZE = size;
+}
+void setSpriteRendererDefaultPaddingSize(Vector2D size) {
+  fe_config::SPRITESHEET_RENDERER_DEFAULT_PADDING_SIZE = size;
 }
 
 #endif

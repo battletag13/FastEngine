@@ -25,6 +25,9 @@ extern std::string WINDOW_TITLE;
 // ECS config
 extern Vector2D SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE;
 
+extern Vector2D SPRITESHEET_RENDERER_DEFAULT_OFFSET_SIZE;
+extern Vector2D SPRITESHEET_RENDERER_DEFAULT_PADDING_SIZE;
+
 // Core constants
 constexpr std::array<int, 4> DEFAULT_RENDERER_DRAW_COLOR = {104, 130, 158, 255};
 

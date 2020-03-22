@@ -17,3 +17,5 @@ int fe_config::WINDOW_HEIGHT = 640;
 std::string fe_config::WINDOW_TITLE = "Fast Engine";
 
 Vector2D fe_config::SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE(16, 16);
+Vector2D fe_config::SPRITESHEET_RENDERER_DEFAULT_OFFSET_SIZE(0, 0);
+Vector2D fe_config::SPRITESHEET_RENDERER_DEFAULT_PADDING_SIZE(0, 0);
