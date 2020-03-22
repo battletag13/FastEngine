@@ -81,7 +81,8 @@ void Engine::render() {
   SDL_RenderPresent(renderer);
 }
 void Engine::events() {
-  SDL_PollEvent(Input::getInstance()->getCurrentEvent());
+  if (SDL_PollEvent(Input::getInstance()->getCurrentEvent()) == 0)
+    *Input::getInstance()->getCurrentEvent() = SDL_Event();
   switch (Input::getInstance()->getCurrentEvent()->type) {
   case SDL_QUIT:
     isRunning_ = false;
