@@ -23,7 +23,7 @@ void start() {
 
   // Demo code
   GameObject &player = manager->addGameObject();
-  player.addComponent<SpriteRenderer>("src/Res/player.png", Vector2D(64, 64));
+  player.addComponent<SpritesheetRenderer>("src/Res/spritesheet_test.png");
   player.addComponent<PlayerManager>();
   // End demo code
 }

@@ -28,6 +28,10 @@ public:
       velocity.x = 1;
     }
 
+    if (input::getMouseButtonDown(0)) {
+      gameObject->getComponent<SpritesheetRenderer>().nextSprite();
+    }
+
     gameObject->getComponent<Transform>().translate(time::deltaTime * velocity);
   }
 
