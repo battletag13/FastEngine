@@ -32,6 +32,9 @@ public:
       velocity.x = 1;
     }
 
+    if (input::getMouseButtonDown(0))
+      gameObject->instantiate(gameObject->getComponent<Transform>().position);
+
     if (velocity.x != 0 && velocity.y != 0) {
       velocity *= diagonalMoveModifier;
     }
