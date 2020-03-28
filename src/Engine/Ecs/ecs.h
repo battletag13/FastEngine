@@ -15,6 +15,7 @@
 #include <array>
 #include <bitset>
 #include <cstdlib>
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -129,6 +130,12 @@ public:
     for (auto &gameObject : gameObjects) {
       gameObject->update();
     }
+    while (gameObjectsWaiting.size() > 0) {
+      std::vector<std::unique_ptr<GameObject>>::iterator it =
+          gameObjectsWaiting.begin();
+      gameObjects.push_back(std::move(*it));
+      gameObjectsWaiting.erase(it);
+    }
   }
   void render() {
     for (auto &gameObject : gameObjects) {
@@ -147,10 +154,11 @@ public:
   GameObject &addGameObject();
 
 private:
-  Manager() {}
+  Manager() : gameObjects(), gameObjectsWaiting() {}
   static Manager *managerInstance;
 
   std::vector<std::unique_ptr<GameObject>> gameObjects;
+  std::vector<std::unique_ptr<GameObject>> gameObjectsWaiting;
 };
 
 } // namespace fast_engine
