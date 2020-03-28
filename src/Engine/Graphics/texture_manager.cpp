@@ -21,7 +21,6 @@ void TextureManager::render(SDL_Texture *texture, SDL_Rect srcRect,
                             SDL_Rect destRect, const float rotationAngle) {
   SDL_RenderCopyEx(Engine::getInstance()->getRenderer(), texture, &srcRect,
                    &destRect, rotationAngle, NULL, SDL_FLIP_NONE);
-  SDL_DestroyTexture(texture);
 }
 
 SDL_Texture *TextureManager::loadTexture(const std::string pathToTexture) {

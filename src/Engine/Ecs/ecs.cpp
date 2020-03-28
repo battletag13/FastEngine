@@ -24,7 +24,7 @@ GameObject &GameObject::instantiate(Vector2D position) {
 GameObject &Manager::addGameObject() {
   GameObject *gameObject = new GameObject(this);
   std::unique_ptr<GameObject> gameObjectUPtr{gameObject};
-  gameObjects.emplace_back(std::move(gameObjectUPtr));
+  gameObjectsWaiting.emplace_back(std::move(gameObjectUPtr));
 
   gameObject->addComponent<Transform>();
   return *gameObject;
