@@ -85,7 +85,7 @@ public:
         if (currentIndex == index) {
           srcRect.x = x;
           srcRect.y = y;
-          break;
+          return;
         }
         ++currentIndex;
       }
