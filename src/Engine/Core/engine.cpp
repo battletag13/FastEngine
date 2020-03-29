@@ -84,7 +84,7 @@ void Engine::render() {
 void Engine::events() {
   if (SDL_PollEvent(Input::getInstance()->getCurrentEvent()) == 0)
     *Input::getInstance()->getCurrentEvent() = SDL_Event();
-  if (Input::getInstance()->getCurrentEvent()->type) {
+  if (Input::getInstance()->getCurrentEvent()->type == SDL_QUIT) {
     isRunning_ = false;
   }
   // Handoff duties to the Input class
