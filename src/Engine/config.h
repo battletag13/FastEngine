@@ -20,6 +20,7 @@ namespace fe_config {
 // Core config
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
+extern int MAX_FPS;
 extern std::string WINDOW_TITLE;
 
 // ECS config

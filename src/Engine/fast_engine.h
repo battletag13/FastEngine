@@ -43,13 +43,18 @@ using fast_engine::SpriteRenderer;
 using fast_engine::SpritesheetRenderer;
 using fast_engine::Transform;
 
+// Core configuration
+void setMaxFps(int FPS) { fe_config::MAX_FPS = FPS; }
+
 // Sets background color of the window
 void setBackgroundColor(int r, int g, int b, int a = 255) {
   fast_engine::Engine::getInstance()->setDrawColor(r, g, b, a);
 };
 
 // Sets window properties
-void setWindowProperties(std::string windowTitle, Vector2D size) {
+void setWindowProperties(std::string windowTitle, bool fullscreen = false,
+                         Vector2D size = Vector2D(fe_config::WINDOW_WIDTH,
+                                                  fe_config::WINDOW_HEIGHT)) {
   fe_config::WINDOW_WIDTH = size.x;
   fe_config::WINDOW_HEIGHT = size.y;
   fe_config::WINDOW_TITLE = windowTitle;
@@ -58,9 +63,8 @@ void setWindowProperties(std::string windowTitle, Vector2D size) {
                      windowTitle.c_str());
   SDL_SetWindowSize(fast_engine::Engine::getInstance()->getWindow(), size.x,
                     size.y);
-}
-void setWindowProperties(std::string windowTitle, int w, int h) {
-  setWindowProperties(windowTitle, Vector2D(w, h));
+  SDL_SetWindowFullscreen(fast_engine::Engine::getInstance()->getWindow(),
+                          (fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
 }
 
 // Sprite renderer defaults

@@ -14,6 +14,7 @@
 
 int fe_config::WINDOW_WIDTH = 960;
 int fe_config::WINDOW_HEIGHT = 640;
+int fe_config::MAX_FPS = 90;
 std::string fe_config::WINDOW_TITLE = "Fast Engine";
 
 Vector2D fe_config::SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE(16, 16);

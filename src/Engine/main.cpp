@@ -17,14 +17,24 @@ int main() {
 
   start();
 
+  int fps = fe_config::MAX_FPS;
+  int frameDelay = 1000 / fps;
+
   // Start the frame clock
   MilisecondsTimer frameClock;
 
   while (fast_engine::Engine::getInstance()->isRunning()) {
+    if (fps != fe_config::MAX_FPS) {
+      fps = fe_config::MAX_FPS;
+      frameDelay = 1000 / fps;
+    }
     fast_engine::Engine::getInstance()->events();
     fast_engine::Engine::getInstance()->update();
     fast_engine::Engine::getInstance()->render();
     time::deltaTime = frameClock.reset();
+    if (frameDelay > time::deltaTime) {
+      SDL_Delay(frameDelay - time::deltaTime);
+    }
   }
 
   fast_engine::Engine::getInstance()->cleanup();

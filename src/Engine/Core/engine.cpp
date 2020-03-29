@@ -42,7 +42,8 @@ bool Engine::init() {
   Logger::getInstance()->log("Window created!");
 
   // Create our renderer and check for errors
-  renderer = SDL_CreateRenderer(window, -1, 0);
+  renderer = SDL_CreateRenderer(
+      window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   if (renderer == nullptr) {
     Logger::getInstance()->logError("Failed to create renderer!");
     Logger::getInstance()->logFatalError(SDL_GetError());
@@ -83,12 +84,8 @@ void Engine::render() {
 void Engine::events() {
   if (SDL_PollEvent(Input::getInstance()->getCurrentEvent()) == 0)
     *Input::getInstance()->getCurrentEvent() = SDL_Event();
-  switch (Input::getInstance()->getCurrentEvent()->type) {
-  case SDL_QUIT:
+  if (Input::getInstance()->getCurrentEvent()->type) {
     isRunning_ = false;
-    break;
-  default:
-    break;
   }
   // Handoff duties to the Input class
   Input::getInstance()->handleCurrentEvent();
