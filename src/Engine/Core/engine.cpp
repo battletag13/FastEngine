@@ -71,7 +71,10 @@ bool Engine::cleanup() {
   return true;
 }
 
-void Engine::update() { Manager::getInstance()->update(); }
+void Engine::update() {
+  Manager::getInstance()->update();
+  Manager::getInstance()->clean();
+}
 void Engine::render() {
   // Prepare the renderer
   SDL_RenderClear(renderer);
