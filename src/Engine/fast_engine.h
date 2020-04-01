@@ -51,7 +51,19 @@ void setBackgroundColor(int r, int g, int b, int a = 255) {
   fast_engine::Engine::getInstance()->setDrawColor(r, g, b, a);
 };
 
-// Sets window properties
+// Window functions
+Vector2D getScreenDimensions() {
+  SDL_DisplayMode DM;
+  SDL_GetCurrentDisplayMode(0, &DM);
+
+  return Vector2D(DM.w, DM.h);
+}
+SDL_DisplayMode getDisplayPropertites() {
+  SDL_DisplayMode DM;
+  SDL_GetCurrentDisplayMode(0, &DM);
+
+  return DM;
+}
 void setWindowProperties(std::string windowTitle, bool fullscreen = false,
                          Vector2D size = Vector2D(fe_config::WINDOW_WIDTH,
                                                   fe_config::WINDOW_HEIGHT)) {
