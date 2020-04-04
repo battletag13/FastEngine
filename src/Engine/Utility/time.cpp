@@ -14,52 +14,48 @@ double time::deltaTime;
 // Set the start point to the current time
 void Timer::start() { startPoint = std::chrono::high_resolution_clock::now(); }
 // Set the end point to the current time
-void Timer::stop() { endPoint = std::chrono::high_resolution_clock::now(); }
+void Timer::stop() {
+  endPoint = std::chrono::high_resolution_clock::now();
+  duration += std::chrono::duration_cast<std::chrono::microseconds>(endPoint -
+                                                                    startPoint)
+                  .count();
+  start();
+}
 
 // Count doesn't actually stop timer,
 // just updates the endPoint variable with stop()
 long double MicrosecondsTimer::count() {
   stop();
-  return std::chrono::duration_cast<std::chrono::microseconds>(endPoint -
-                                                               startPoint)
-      .count();
+  return duration;
 }
 long double MicrosecondsTimer::reset() {
   stop();
-  long double duration = std::chrono::duration_cast<std::chrono::microseconds>(
-                             endPoint - startPoint)
-                             .count();
+  double toReturn = duration;
+  duration = 0;
   start();
-  return duration;
+  return toReturn;
 }
 
 long double MilisecondsTimer::count() {
   stop();
-  return std::chrono::duration_cast<std::chrono::microseconds>(endPoint -
-                                                               startPoint)
-             .count() /
-         1000.;
+  return duration / 1000.;
 }
 long double MilisecondsTimer::reset() {
   stop();
-  long double duration = std::chrono::duration_cast<std::chrono::microseconds>(
-                             endPoint - startPoint)
-                             .count() /
-                         1000.;
+  double toReturn = duration;
+  duration = 0;
   start();
-  return duration;
+  return toReturn / 1000.;
 }
 
-unsigned long long SecondsTimer::count() {
+long double SecondsTimer::count() {
   stop();
-  return std::chrono::duration_cast<std::chrono::seconds>(endPoint - startPoint)
-      .count();
+  return duration / 1000000.;
 }
-unsigned long long SecondsTimer::reset() {
+long double SecondsTimer::reset() {
   stop();
-  unsigned long long duration =
-      std::chrono::duration_cast<std::chrono::seconds>(endPoint - startPoint)
-          .count();
+  double toReturn = duration;
+  duration = 0;
   start();
-  return duration;
+  return toReturn / 1000000.;
 }

@@ -21,13 +21,14 @@ struct time {
 // General timer class
 class Timer {
 public:
-  Timer() { start(); };
+  Timer() : duration(0) { start(); };
 
   void start();
   void stop();
 
 protected:
   std::chrono::high_resolution_clock::time_point startPoint, endPoint;
+  long double duration;
 };
 
 struct MicrosecondsTimer : public Timer {
@@ -39,8 +40,8 @@ struct MilisecondsTimer : public Timer {
   long double reset();
 };
 struct SecondsTimer : public Timer {
-  unsigned long long count();
-  unsigned long long reset();
+  long double count();
+  long double reset();
 };
 
 #endif
