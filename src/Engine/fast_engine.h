@@ -19,6 +19,7 @@
 #include "Core/engine.h"
 
 // ECS includes
+#include "Ecs/animation.h"
 #include "Ecs/ecs.h"
 #include "Ecs/sprite_renderer.h"
 #include "Ecs/spritesheet_renderer.h"
@@ -36,12 +37,14 @@
 
 // Engine configuration
 
+using fast_engine::Animator;
 using fast_engine::Component;
 using fast_engine::GameObject;
 using fast_engine::Manager;
 using fast_engine::SpriteRenderer;
 using fast_engine::SpritesheetRenderer;
 using fast_engine::Transform;
+using fast_engine::animation::Animation;
 
 // Core configuration
 void setMaxFps(int FPS) { fe_config::MAX_FPS = FPS; }

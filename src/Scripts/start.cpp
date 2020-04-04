@@ -25,5 +25,14 @@ void start() {
   GameObject &player = manager->addGameObject();
   player.addComponent<SpritesheetRenderer>("src/Res/spritesheet_test.png");
   player.addComponent<PlayerController>(1, 0.7);
+  player.addComponent<Animator>();
+
+  Animation &anim =
+      player.getComponent<Animator>().createAnimation("Test", false, false);
+  anim.pushStateChangeFrame(4000, 180, Vector2D(100, 100), Vector2D(2, 2));
+  anim.pushVisualFrame(1, 0);
+  anim.pushStateChangeFrame(4000, 180, Vector2D(100, 100), Vector2D(5, 5));
+
+  player.getComponent<Animator>().playAnimation("Test");
   // End demo code
 }
