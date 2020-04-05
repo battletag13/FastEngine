@@ -43,11 +43,13 @@ public:
   Vector2D getScale() { return scale; }
   void setScale(Vector2D scale) { this->scale = scale; }
 
+  // Size of srcRect
   Vector2D getBaseRenderedSize() { return baseRenderedSize; }
   void setBaseRenderedSize(Vector2D baseRenderedSize) {
     this->baseRenderedSize = baseRenderedSize;
   }
 
+  // Final render size (what is seen on screen)
   Vector2D getFinalRenderedSize() { return baseRenderedSize * scale; }
 
   double getAngleOfRotation() { return angleOfRotation; }

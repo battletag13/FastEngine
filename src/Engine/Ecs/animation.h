@@ -87,6 +87,7 @@ public:
           transform->setAngleOfRotation(lastRotationAngle);
         }
         if (++currentKeyframe >= keyframes.size()) {
+          // We are done with this iteration
           if (looping)
             restart();
           else {
@@ -96,14 +97,17 @@ public:
         frameFinished = false;
         timer.reset();
 
+        // If durationMS is 0, we must still change the sprite
         if (keyframe.durationMS != 0 || !keyframe.visual)
           return;
       }
 
+      // Update sprite if necessary
       if (keyframe.visual && keyframe.frameNumber != -1 && !frameFinished) {
         frameFinished = true;
         spritesheetRenderer->setSprite(keyframe.frameNumber);
       }
+      // Update state
       if (!keyframe.visual) {
         transform->setPosition(lastPosition +
                                keyframe.position *
