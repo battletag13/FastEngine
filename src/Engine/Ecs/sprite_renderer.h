@@ -39,11 +39,14 @@ public:
 
     destRect.w = srcRect.w;
     destRect.h = srcRect.h;
+
+    gameObject->getComponent<Transform>().setBaseRenderedSize(
+        Vector2D(srcRect.w, srcRect.h));
   }
   virtual void render() override {
     TextureManager::getInstance()->render(
         objectTexture, srcRect, destRect,
-        gameObject->getComponent<Transform>().angleOfRotation);
+        gameObject->getComponent<Transform>().getAngleOfRotation());
   }
   void setSrcRectSize(Vector2D srcRectSize) {
     srcRect.w = srcRectSize.x;
@@ -55,12 +58,12 @@ public:
   virtual void update() override {
     Transform &transform = gameObject->getComponent<Transform>();
     // Update position
-    destRect.x = transform.position.x;
-    destRect.y = transform.position.y;
+    destRect.x = transform.getPosition().x;
+    destRect.y = transform.getPosition().y;
 
     // Update scale
-    destRect.w = srcRect.w * transform.scale.x;
-    destRect.h = srcRect.h * transform.scale.y;
+    destRect.w = srcRect.w * transform.getScale().x;
+    destRect.h = srcRect.h * transform.getScale().y;
   }
 
 private:

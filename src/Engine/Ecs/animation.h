@@ -77,10 +77,14 @@ public:
         // Make sure any remaining interpolation is just snapped to place and
         // then move to the next keyframe
         if (!keyframe.visual) {
-          lastPosition = transform->position = lastPosition + keyframe.position;
-          lastScale = transform->scale = lastScale * keyframe.scale;
-          lastRotationAngle = transform->angleOfRotation =
-              lastRotationAngle + keyframe.rotationAngle;
+          lastPosition = lastPosition + keyframe.position;
+          transform->setPosition(lastPosition);
+
+          lastScale = lastScale * keyframe.scale;
+          transform->setScale(lastScale);
+
+          lastRotationAngle = lastRotationAngle + keyframe.rotationAngle;
+          transform->setAngleOfRotation(lastRotationAngle);
         }
         if (++currentKeyframe >= keyframes.size()) {
           if (looping)
@@ -101,14 +105,15 @@ public:
         spritesheetRenderer->setSprite(keyframe.frameNumber);
       }
       if (!keyframe.visual) {
-        transform->position =
-            lastPosition + keyframe.position * (1 - left / keyframe.durationMS);
-        transform->scale =
-            lastScale + (keyframe.scale * lastScale - lastScale) *
-                            (1 - left / keyframe.durationMS);
-        transform->angleOfRotation =
-            lastRotationAngle +
-            keyframe.rotationAngle * (1 - left / keyframe.durationMS);
+        transform->setPosition(lastPosition +
+                               keyframe.position *
+                                   (1 - left / keyframe.durationMS));
+        transform->setScale(lastScale +
+                            (keyframe.scale * lastScale - lastScale) *
+                                (1 - left / keyframe.durationMS));
+        transform->setAngleOfRotation(lastRotationAngle +
+                                      keyframe.rotationAngle *
+                                          (1 - left / keyframe.durationMS));
       }
     }
   }
@@ -133,9 +138,9 @@ public:
     timer.start();
     playing = true;
     currentKeyframe = 0;
-    lastPosition = startPosition = transform->position;
-    lastScale = startScale = transform->scale;
-    lastRotationAngle = startRotationAngle = transform->angleOfRotation;
+    lastPosition = startPosition = transform->getPosition();
+    lastScale = startScale = transform->getScale();
+    lastRotationAngle = startRotationAngle = transform->getAngleOfRotation();
     frameFinished = false;
   }
   // Stop animation
@@ -146,9 +151,13 @@ public:
   // Reset animation then start playing again
   void restart() {
     if (visual) {
-      lastPosition = transform->position = startPosition;
-      lastScale = transform->scale = startScale;
-      lastRotationAngle = transform->angleOfRotation = startRotationAngle;
+      lastPosition = startPosition;
+      lastScale = startScale;
+      lastRotationAngle = startRotationAngle;
+
+      transform->setPosition(lastPosition);
+      transform->setScale(lastScale);
+      transform->setAngleOfRotation(lastRotationAngle);
     }
     timer.reset();
     play();
@@ -258,6 +267,7 @@ public:
                                              int startSprite = 0,
                                              bool looping = false,
                                              bool visual = false) {
+    std::string animationName = std::string(name);
     animation::Animation *animation = new animation::Animation(
         name, &gameObject->getComponent<Transform>(), looping, visual);
 
@@ -267,8 +277,8 @@ public:
     }
 
     std::shared_ptr<animation::Animation> animationUPtr{animation};
-    animations.insert(
-        std::make_pair(std::string(name), std::move(animationUPtr)));
+    animations.insert(std::make_pair(animationName, std::move(animationUPtr)));
+    return *animations.at(animationName);
   }
 
 private:

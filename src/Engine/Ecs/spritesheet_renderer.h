@@ -24,10 +24,9 @@ public:
   SpritesheetRenderer(
       const std::string pathToSpritesheet,
       Vector2D srcRectSize = fe_config::SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE,
-      Vector2D sliceSize = fe_config::SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE,
       Vector2D offset = fe_config::SPRITESHEET_RENDERER_DEFAULT_OFFSET_SIZE,
       Vector2D padding = fe_config::SPRITESHEET_RENDERER_DEFAULT_PADDING_SIZE)
-      : sliceSize(sliceSize), offset(offset), padding(padding) {
+      : offset(offset), padding(padding) {
 
     setTexture(pathToSpritesheet);
 
@@ -45,9 +44,9 @@ public:
     spriteCount = 0;
     currentIndex = 0;
     for (int y = offset.y; y < spritesheetDimensions.y;
-         y += sliceSize.y + padding.y) {
+         y += srcRectSize.y + padding.y) {
       for (int x = offset.x; x < spritesheetDimensions.x;
-           x += sliceSize.x + padding.x) {
+           x += srcRectSize.x + padding.x) {
         // This is where we start counting tiles
         ++spriteCount;
       }
@@ -64,11 +63,14 @@ public:
 
     destRect.w = srcRect.w;
     destRect.h = srcRect.h;
+
+    gameObject->getComponent<Transform>().setBaseRenderedSize(
+        Vector2D(srcRect.w, srcRect.h));
   }
   virtual void render() override {
     TextureManager::getInstance()->render(
         objectTexture, srcRect, destRect,
-        gameObject->getComponent<Transform>().angleOfRotation);
+        gameObject->getComponent<Transform>().getAngleOfRotation());
   }
   void setSrcRectSize(Vector2D srcRectSize) {
     srcRect.w = srcRectSize.x;
@@ -78,9 +80,9 @@ public:
   void setSprite(int index) {
     currentIndex = 0;
     for (int y = offset.y; y < spritesheetDimensions.y;
-         y += sliceSize.y + padding.y) {
+         y += srcRect.w + padding.y) {
       for (int x = offset.x; x < spritesheetDimensions.x;
-           x += sliceSize.x + padding.x) {
+           x += srcRect.h + padding.x) {
         // This is where we start counting tiles
         if (currentIndex == index) {
           srcRect.x = x;
@@ -104,12 +106,12 @@ public:
   virtual void update() override {
     Transform &transform = gameObject->getComponent<Transform>();
     // Update position
-    destRect.x = transform.position.x;
-    destRect.y = transform.position.y;
+    destRect.x = transform.getPosition().x;
+    destRect.y = transform.getPosition().y;
 
     // Update scale
-    destRect.w = srcRect.w * transform.scale.x;
-    destRect.h = srcRect.h * transform.scale.y;
+    destRect.w = srcRect.w * transform.getScale().x;
+    destRect.h = srcRect.h * transform.getScale().y;
   }
 
   int spriteCount;
@@ -119,7 +121,6 @@ private:
   SDL_Texture *objectTexture;
   SDL_Rect srcRect, destRect;
 
-  Vector2D sliceSize;
   Vector2D offset;
   Vector2D padding;
   Vector2D spritesheetDimensions;
