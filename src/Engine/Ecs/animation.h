@@ -260,6 +260,12 @@ public:
                                              bool visual = false) {
     animation::Animation *animation = new animation::Animation(
         name, &gameObject->getComponent<Transform>(), looping, visual);
+
+    double eachDuration = duration / count;
+    for (int i = 0; i < count; ++i) {
+      animation->pushVisualFrame(startSprite + i, eachDuration);
+    }
+
     std::shared_ptr<animation::Animation> animationUPtr{animation};
     animations.insert(
         std::make_pair(std::string(name), std::move(animationUPtr)));
