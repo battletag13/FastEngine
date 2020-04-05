@@ -26,6 +26,8 @@ namespace fast_engine {
 
 namespace animation {
 struct Keyframe {
+  Keyframe(double durationMS)
+      : visual(true), frameNumber(-1), durationMS(durationMS) {}
   Keyframe(double durationMS, int frameNumber)
       : visual(true), frameNumber(frameNumber), durationMS(durationMS) {}
   Keyframe(double durationMS, double rotationAngle, Vector2D position,
@@ -56,10 +58,13 @@ public:
     keyframes.push_back(Keyframe(durationMS, frame));
   }
   void pushStateChangeFrame(double durationMS, double rotationAngle,
-                            Vector2D position, Vector2D targetScale) {
+                            Vector2D position, Vector2D scale) {
     // Adding state change keyframe
-    keyframes.push_back(
-        Keyframe(durationMS, rotationAngle, position, targetScale));
+    keyframes.push_back(Keyframe(durationMS, rotationAngle, position, scale));
+  }
+  void pushWaitFrame(double durationMS) {
+    // Adding a wait keyframe
+    keyframes.push_back(durationMS);
   }
 
   void update() {
@@ -73,7 +78,7 @@ public:
         // then move to the next keyframe
         if (!keyframe.visual) {
           lastPosition = transform->position = lastPosition + keyframe.position;
-          lastScale = transform->scale = keyframe.scale;
+          lastScale = transform->scale = lastScale * keyframe.scale;
           lastRotationAngle = transform->angleOfRotation =
               lastRotationAngle + keyframe.rotationAngle;
         }
@@ -87,19 +92,20 @@ public:
         frameFinished = false;
         timer.reset();
 
-        if (keyframe.durationMS != 0)
+        if (keyframe.durationMS != 0 || !keyframe.visual)
           return;
       }
 
-      if (keyframe.visual && !frameFinished) {
+      if (keyframe.visual && keyframe.frameNumber != -1 && !frameFinished) {
         frameFinished = true;
         spritesheetRenderer->setSprite(keyframe.frameNumber);
       }
       if (!keyframe.visual) {
         transform->position =
             lastPosition + keyframe.position * (1 - left / keyframe.durationMS);
-        transform->scale = lastScale + (keyframe.scale - lastScale) *
-                                           (1 - left / keyframe.durationMS);
+        transform->scale =
+            lastScale + (keyframe.scale * lastScale - lastScale) *
+                            (1 - left / keyframe.durationMS);
         transform->angleOfRotation =
             lastRotationAngle +
             keyframe.rotationAngle * (1 - left / keyframe.durationMS);
