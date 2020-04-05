@@ -9,6 +9,7 @@
 //
 #include "engine.h"
 #include "../Ecs/ecs.h"
+#include "../Graphics/texture_manager.h"
 #include "../Input/input.h"
 #include "../Logger/logger.h"
 #include "../config.h"
@@ -80,6 +81,7 @@ void Engine::render() {
   SDL_RenderClear(renderer);
 
   Manager::getInstance()->render();
+  TextureManager::getInstance()->renderAll();
 
   // Present the renderer
   SDL_RenderPresent(renderer);

@@ -22,11 +22,11 @@ class SpritesheetRenderer : public Component {
 public:
   // Constructors
   SpritesheetRenderer(
-      const std::string pathToSpritesheet,
+      const std::string pathToSpritesheet, int sortingOrder = 0,
       Vector2D srcRectSize = fe_config::SPRITE_RENDERER_DEFAULT_SRC_RECT_SIZE,
       Vector2D offset = fe_config::SPRITESHEET_RENDERER_DEFAULT_OFFSET_SIZE,
       Vector2D padding = fe_config::SPRITESHEET_RENDERER_DEFAULT_PADDING_SIZE)
-      : offset(offset), padding(padding) {
+      : sortingOrder(sortingOrder), offset(offset), padding(padding) {
 
     setTexture(pathToSpritesheet);
 
@@ -68,8 +68,8 @@ public:
         Vector2D(srcRect.w, srcRect.h));
   }
   virtual void render() override {
-    TextureManager::getInstance()->render(
-        objectTexture, srcRect, destRect,
+    TextureManager::getInstance()->renderQueue(
+        objectTexture, srcRect, destRect, sortingOrder,
         gameObject->getComponent<Transform>().getAngleOfRotation());
   }
   void setSrcRectSize(Vector2D srcRectSize) {
@@ -114,10 +114,15 @@ public:
     destRect.h = srcRect.h * transform.getScale().y;
   }
 
+  int getSortingOrder() { return sortingOrder; }
+  void setSortingOrder(int sortingOrder) { this->sortingOrder = sortingOrder; }
+
   int spriteCount;
   int currentIndex;
 
 private:
+  int sortingOrder;
+
   SDL_Texture *objectTexture;
   SDL_Rect srcRect, destRect;
 
