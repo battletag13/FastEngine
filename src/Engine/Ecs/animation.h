@@ -86,7 +86,9 @@ public:
         }
         frameFinished = false;
         timer.reset();
-        return;
+
+        if (keyframe.durationMS != 0)
+          return;
       }
 
       if (keyframe.visual && !frameFinished) {
