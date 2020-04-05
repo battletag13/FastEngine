@@ -24,24 +24,27 @@ public:
         baseRenderedSize(0, 0) {}
 
   // Basic transform operations
-  void translate(Vector2D vector) { this->position += vector; }
+  void translate(Vector2D vector) { setPosition(position + vector); }
   void rotate(double angle) {
-    this->angleOfRotation += angle;
+    setAngleOfRotation(angleOfRotation + angle);
     if (angleOfRotation < 0) {
       angleOfRotation = -angleOfRotation;
       angleOfRotation = std::fmod(angleOfRotation, 360);
-      angleOfRotation = -angleOfRotation;
+      setAngleOfRotation(-angleOfRotation);
     } else {
-      angleOfRotation = std::fmod(angleOfRotation, 360);
+      setAngleOfRotation(std::fmod(angleOfRotation, 360));
     }
   }
-  void scaleBy(Vector2D scalar) { this->scale *= scalar; }
+
+  void scaleBy(Vector2D scalar) { setScale(scale * scalar); }
 
   Vector2D getPosition() { return position; }
-  void setPosition(Vector2D position) { this->position = position; }
+  void setPosition(Vector2D position);
+  void setPositionDiscrete(Vector2D position);
 
   Vector2D getScale() { return scale; }
-  void setScale(Vector2D scale) { this->scale = scale; }
+  void setScale(Vector2D scale);
+  void setScaleDiscrete(Vector2D scale);
 
   // Size of srcRect
   Vector2D getBaseRenderedSize() { return baseRenderedSize; }
@@ -53,9 +56,8 @@ public:
   Vector2D getFinalRenderedSize() { return baseRenderedSize * scale; }
 
   double getAngleOfRotation() { return angleOfRotation; }
-  void setAngleOfRotation(double angleOfRotation) {
-    this->angleOfRotation = angleOfRotation;
-  }
+  void setAngleOfRotation(double angleOfRotation);
+  void setAngleOfRotationDiscrete(double angleOfRotation);
 
 private:
   // Members

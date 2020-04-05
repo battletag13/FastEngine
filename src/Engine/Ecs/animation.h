@@ -78,13 +78,13 @@ public:
         // then move to the next keyframe
         if (!keyframe.visual) {
           lastPosition = lastPosition + keyframe.position;
-          transform->setPosition(lastPosition);
+          transform->setPositionDiscrete(lastPosition);
 
           lastScale = lastScale * keyframe.scale;
-          transform->setScale(lastScale);
+          transform->setScaleDiscrete(lastScale);
 
           lastRotationAngle = lastRotationAngle + keyframe.rotationAngle;
-          transform->setAngleOfRotation(lastRotationAngle);
+          transform->setAngleOfRotationDiscrete(lastRotationAngle);
         }
         if (++currentKeyframe >= keyframes.size()) {
           // We are done with this iteration
@@ -109,15 +109,15 @@ public:
       }
       // Update state
       if (!keyframe.visual) {
-        transform->setPosition(lastPosition +
-                               keyframe.position *
-                                   (1 - left / keyframe.durationMS));
-        transform->setScale(lastScale +
-                            (keyframe.scale * lastScale - lastScale) *
-                                (1 - left / keyframe.durationMS));
-        transform->setAngleOfRotation(lastRotationAngle +
-                                      keyframe.rotationAngle *
-                                          (1 - left / keyframe.durationMS));
+        transform->setPositionDiscrete(lastPosition +
+                                       keyframe.position *
+                                           (1 - left / keyframe.durationMS));
+        transform->setScaleDiscrete(lastScale +
+                                    (keyframe.scale * lastScale - lastScale) *
+                                        (1 - left / keyframe.durationMS));
+        transform->setAngleOfRotationDiscrete(
+            lastRotationAngle +
+            keyframe.rotationAngle * (1 - left / keyframe.durationMS));
       }
     }
   }
@@ -159,12 +159,25 @@ public:
       lastScale = startScale;
       lastRotationAngle = startRotationAngle;
 
-      transform->setPosition(lastPosition);
-      transform->setScale(lastScale);
-      transform->setAngleOfRotation(lastRotationAngle);
+      transform->setPositionDiscrete(lastPosition);
+      transform->setScaleDiscrete(lastScale);
+      transform->setAngleOfRotationDiscrete(lastRotationAngle);
     }
     timer.reset();
     play();
+  }
+
+  void updatePosition(Vector2D positionChange) {
+    startPosition += positionChange;
+    lastPosition += positionChange;
+  }
+  void updateScale(Vector2D scaleMultiplier) {
+    startScale *= scaleMultiplier;
+    lastScale *= scaleMultiplier;
+  }
+  void updateRotationAngle(double rotationAngleChange) {
+    startRotationAngle += rotationAngleChange;
+    lastRotationAngle += rotationAngleChange;
   }
 
   std::string &getName() { return name; }
@@ -212,6 +225,22 @@ public:
       for (auto animation : animations) {
         animation.second->updateSpritesheetRenderer();
       }
+    }
+  }
+  // Updates any transform changes since animation start
+  void updatePosition(Vector2D positionChange) {
+    if (currentlyPlayingAnimation != nullptr) {
+      currentlyPlayingAnimation->updatePosition(positionChange);
+    }
+  }
+  void updateScale(Vector2D scaleMultiplier) {
+    if (currentlyPlayingAnimation != nullptr) {
+      currentlyPlayingAnimation->updateScale(scaleMultiplier);
+    }
+  }
+  void updateRotationAngle(double rotationAngleChange) {
+    if (currentlyPlayingAnimation != nullptr) {
+      currentlyPlayingAnimation->updateRotationAngle(rotationAngleChange);
     }
   }
 
