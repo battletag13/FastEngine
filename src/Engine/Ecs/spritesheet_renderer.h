@@ -80,9 +80,9 @@ public:
   void setSprite(int index) {
     currentIndex = 0;
     for (int y = offset.y; y < spritesheetDimensions.y;
-         y += srcRect.w + padding.y) {
+         y += srcRect.h + padding.y) {
       for (int x = offset.x; x < spritesheetDimensions.x;
-           x += srcRect.h + padding.x) {
+           x += srcRect.w + padding.x) {
         // This is where we start counting tiles
         if (currentIndex == index) {
           srcRect.x = x;
