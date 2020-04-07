@@ -135,11 +135,13 @@ public:
   // Reset animation
   void cancel() {
     timer.reset();
+    spritesheetRenderer->setSprite(startFrame);
     playing = false;
   }
   // Start animation
   void play() {
     timer.start();
+    startFrame = spritesheetRenderer->currentIndex;
     playing = true;
     currentKeyframe = 0;
     lastPosition = startPosition = transform->getPosition();
@@ -186,6 +188,7 @@ public:
 private:
   double duration;
   int currentKeyframe;
+  int startFrame;
   bool looping;
   bool playing;
   bool frameFinished;
