@@ -20,14 +20,15 @@ namespace fast_engine {
 
 struct RenderData {
   RenderData(SDL_Texture *texture, SDL_Rect srcRect, SDL_Rect destRect,
-             double rotationAngle)
+             double rotationAngle, SDL_RendererFlip flip)
       : texture(texture), srcRect(srcRect), destRect(destRect),
-        rotationAngle(rotationAngle) {}
+        rotationAngle(rotationAngle), flip(flip) {}
 
   SDL_Texture *texture;
   SDL_Rect srcRect;
   SDL_Rect destRect;
   double rotationAngle;
+  SDL_RendererFlip flip;
 };
 
 class TextureManager {
@@ -40,10 +41,12 @@ public:
 
   // General function for rendering an SDL Texture
   void render(SDL_Texture *texture, SDL_Rect srcRect, SDL_Rect destRect,
-              const double rotationAngle = 0);
+              const double rotationAngle = 0,
+              SDL_RendererFlip flip = SDL_FLIP_NONE);
   // Queue a render
   void renderQueue(SDL_Texture *texture, SDL_Rect srcRect, SDL_Rect destRect,
-                   int sortingOrder = 0, const double rotationAngle = 0);
+                   int sortingOrder = 0, const double rotationAngle = 0,
+                   SDL_RendererFlip flip = SDL_FLIP_NONE);
   void renderAll();
 
   // For loading a texture from a file

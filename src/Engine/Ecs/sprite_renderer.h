@@ -10,6 +10,8 @@
 #ifndef FASTENGINE_SPRITE_RENDERER_COMPONENT_H_
 #define FASTENGINE_SPRITE_RENDERER_COMPONENT_H_
 
+#include <cmath>
+
 #include "../Graphics/texture_manager.h"
 #include "../config.h"
 #include "SDL2/SDL.h"
@@ -45,9 +47,17 @@ public:
         Vector2D(srcRect.w, srcRect.h));
   }
   virtual void render() override {
+    SDL_RendererFlip flipFlag = SDL_FLIP_NONE;
+    if (gameObject->getComponent<Transform>().getScale().x < 0) {
+      flipFlag = static_cast<SDL_RendererFlip>(flipFlag | SDL_FLIP_HORIZONTAL);
+    }
+    if (gameObject->getComponent<Transform>().getScale().y < 0) {
+      flipFlag = static_cast<SDL_RendererFlip>(flipFlag | SDL_FLIP_VERTICAL);
+    }
+
     TextureManager::getInstance()->renderQueue(
         objectTexture, srcRect, destRect, sortingOrder,
-        gameObject->getComponent<Transform>().getAngleOfRotation());
+        gameObject->getComponent<Transform>().getAngleOfRotation(), flipFlag);
   }
   void setSrcRectSize(Vector2D srcRectSize) {
     srcRect.w = srcRectSize.x;
@@ -63,8 +73,8 @@ public:
     destRect.y = transform.getPosition().y;
 
     // Update scale
-    destRect.w = srcRect.w * transform.getScale().x;
-    destRect.h = srcRect.h * transform.getScale().y;
+    destRect.w = std::abs(srcRect.w * transform.getScale().x);
+    destRect.h = std::abs(srcRect.h * transform.getScale().y);
   }
 
   int getSortingOrder() { return sortingOrder; }
