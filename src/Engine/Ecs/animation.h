@@ -287,6 +287,16 @@ public:
     }
   }
 
+  // Extra utilities
+  bool isAnimationPlaying(const char *name) {
+    if (currentlyPlayingAnimation != nullptr)
+      return currentlyPlayingAnimation->getName() == name;
+    return false;
+  }
+  std::string &getCurrentlyPlayingAnimation() {
+    return currentlyPlayingAnimation->getName();
+  }
+
   // Creates a blank animation
   animation::Animation &createAnimation(const char *name, bool looping = false,
                                         bool visual = false) {
