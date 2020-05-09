@@ -1,2 +1,2 @@
 # FastEngine
-A simple game engine written in C++ using SDL
+### A simple game engine written in C++ using SDL
